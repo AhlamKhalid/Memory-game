@@ -66,15 +66,19 @@ h1 {
 }
 
 .deck .card.open {
+    /* rotate the card around y axis */
     transform: rotateY(0);
     background: #02b3e4;
+    /* triangle cursor */
     cursor: default;
 }
 
+/* to show the symbols on the cards */
 .deck .card.show {
     font-size: 33px;
 }
 
+/* this class is addad to the chard whenever it matches another card */
 .deck .card.match {
     cursor: default;
     background: #02ccba;
