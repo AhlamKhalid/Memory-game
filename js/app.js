@@ -44,7 +44,7 @@ const displayCards = () => {
 // parameter (the event itself)
 const clickCard = event => {
   // Get event target (what was actually been clicked)
-  let card = event.target;
+  const card = event.target;
   // Check if a card is clicked (and not the deck!)
   if (card.nodeName.toLowerCase() === "li") {
     // invoke openCard function
@@ -72,11 +72,41 @@ const addCardToOpenedCards = card => {
   openedCards.push(card);
   // check how many cards in the list
   if (openedCards.length === 2) {
-    console.log("two cards are clicked");
-    const [firstCard, secondCard] = openedCards;
-    console.log(firstCard, secondCard);
+    // if there are two cards, check if they match
+    checkMatching();
+  }
+};
+
+// -----------------------------------------------------------
+
+// check if two cards are matched
+const checkMatching = () => {
+  // Get the cards by destructing
+  const [firstCard, secondCard] = openedCards;
+  // compare two cards by class name.
+  // match
+  if (firstCard.className === secondCard.className) {
+    // invoke match function
+    match();
+  }
+  // not match
+  else {
     openedCards = [];
   }
+};
+
+// -----------------------------------------------------------
+
+// the cards are matched
+const match = () => {
+  openedCards.forEach(card => {
+    // remove open & show classes because
+    // match class does the same job :)
+    card.classList.remove("open", "show");
+    card.classList.add("match");
+  });
+  // empty openedCards list
+  openedCards = [];
 };
 
 // -----------------------------------------------------------
