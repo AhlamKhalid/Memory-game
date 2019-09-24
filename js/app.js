@@ -47,8 +47,17 @@ const clickCard = event => {
   let card = event.target;
   // Check if a card is clicked (and not the deck!)
   if (card.nodeName.toLowerCase() === "li") {
-    console.log("li is clicked!");
+    // invoke openCard function
+    openCard(card);
   }
+};
+
+// -----------------------------------------------------------
+
+// open & show the symbol on card when clicked
+const openCard = card => {
+  card.classList.add("open");
+  card.classList.add("show");
 };
 
 // -----------------------------------------------------------
