@@ -91,7 +91,8 @@ const checkMatching = () => {
   }
   // not match
   else {
-    openedCards = [];
+    // invoke notMatch function
+    notMatch();
   }
 };
 
@@ -107,6 +108,22 @@ const match = () => {
   });
   // empty openedCards list
   openedCards = [];
+};
+
+// -----------------------------------------------------------
+
+// the cards are not matched
+const notMatch = () => {
+  // setTimeout is used to give the chance
+  // for the second card to be shown
+  // before it is covered again (after 1s delay)
+  setTimeout(() => {
+    openedCards.forEach(card => {
+      card.classList.remove("open", "show");
+    });
+    // empty openedCards list
+    openedCards = [];
+  }, 1000);
 };
 
 // -----------------------------------------------------------
