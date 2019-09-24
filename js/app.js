@@ -49,6 +49,8 @@ const clickCard = event => {
   if (card.nodeName.toLowerCase() === "li") {
     // invoke openCard function
     openCard(card);
+    // invoke addCardToOpenedCards function
+    addCardToOpenedCards(card);
   }
 };
 
@@ -58,6 +60,23 @@ const clickCard = event => {
 const openCard = card => {
   card.classList.add("open");
   card.classList.add("show");
+};
+
+// -----------------------------------------------------------
+
+// add the clicked card to a list of open cards
+// & check if there are two cards already in the
+// list
+const addCardToOpenedCards = card => {
+  // Add the card
+  openedCards.push(card);
+  // check how many cards in the list
+  if (openedCards.length === 2) {
+    console.log("two cards are clicked");
+    const [firstCard, secondCard] = openedCards;
+    console.log(firstCard, secondCard);
+    openedCards = [];
+  }
 };
 
 // -----------------------------------------------------------
@@ -95,6 +114,9 @@ displayCards();
 
 // add event listener to the deck
 deck.addEventListener("click", clickCard);
+
+// Array of opened cards to check matching
+let openedCards = [];
 
 /*
  * set up the event listener for a card. If a card is clicked:
