@@ -2,7 +2,6 @@
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 const shuffle = array => {
-
   var currentIndex = array.length,
     temporaryValue,
     randomIndex;
@@ -18,6 +17,8 @@ const shuffle = array => {
   return array;
 };
 
+// -----------------------------------------------------------
+
 // arrow function to display cards on the deck
 const displayCards = () => {
   // fragment for cards
@@ -29,7 +30,7 @@ const displayCards = () => {
     // give it class name
     // card: style the card
     // fa and ${shape}: define the shape
-    card.className = `card fa ${shape} open show`;
+    card.className = `card fa ${shape}`;
     // append card to fragment
     fragment.appendChild(card);
   }
@@ -37,11 +38,24 @@ const displayCards = () => {
   deck.appendChild(fragment);
 };
 
-// --------------------------------
-//
-// --------------------------------
+// -----------------------------------------------------------
 
-// deck
+// Event listener of the deck
+// parameter (the event itself)
+const clickCard = event => {
+  // Get event target (what was actually been clicked)
+  let card = event.target;
+  // Check if a card is clicked (and not the deck!)
+  if (card.nodeName.toLowerCase() === "li") {
+    console.log("li is clicked!");
+  }
+};
+
+// -----------------------------------------------------------
+
+// Main code
+
+// Get deck
 const deck = document.querySelector(".deck");
 
 // array to hold shapes
@@ -69,6 +83,9 @@ const shuffledArray = shuffle(shapeArray);
 
 // invoke displayCards function
 displayCards();
+
+// add event listener to the deck
+deck.addEventListener("click", clickCard);
 
 /*
  * set up the event listener for a card. If a card is clicked:
