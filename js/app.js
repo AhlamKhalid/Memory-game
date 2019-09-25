@@ -46,7 +46,13 @@ const clickCard = event => {
   // Get event target (what was actually been clicked)
   const card = event.target;
   // Check if a card is clicked (and not the deck!)
-  if (card.nodeName.toLowerCase() === "li") {
+  // & the card is not already opened
+  // & the card is not already matched
+  if (
+    card.nodeName.toLowerCase() === "li" &&
+    !card.classList.contains("open") &&
+    !card.classList.contains("match")
+  ) {
     // invoke openCard function
     openCard(card);
     // invoke addCardToOpenedCards function
