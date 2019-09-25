@@ -80,6 +80,10 @@ const addCardToOpenedCards = card => {
   if (openedCards.length === 2) {
     // if there are two cards, check if they match
     checkMatching();
+    // invoke editMoves function
+    // whenever the second card
+    // is clicked
+    editMoves();
   }
 };
 
@@ -134,6 +138,18 @@ const notMatch = () => {
 
 // -----------------------------------------------------------
 
+// Edit number of moves
+const editMoves = () => {
+  // increment number of moves by one
+  moves = moves + 1;
+  // Get the element to hold the number
+  const movesElement = document.querySelector(".moves");
+  // update the value
+  movesElement.innerHTML = moves;
+};
+
+// -----------------------------------------------------------
+
 // Main code
 
 // Get deck
@@ -170,6 +186,9 @@ deck.addEventListener("click", clickCard);
 
 // Array of opened cards to check matching
 let openedCards = [];
+
+// number of moves
+let moves = 0;
 
 /*
  * set up the event listener for a card. If a card is clicked:
