@@ -40,6 +40,42 @@ const displayCards = () => {
 
 // -----------------------------------------------------------
 
+// adjust timer
+const adjustTimer = () => {
+  // invoke adjustSeconds function
+  adjustSeconds();
+  // invoke adjustMinutes function
+  adjustMinutes();
+};
+
+// -----------------------------------------------------------
+
+// adjust seconds
+const adjustSeconds = () => {
+  // update seconds element
+  secElement.innerHTML = seconds;
+  // update seconds value
+  seconds = seconds + 1;
+  // after 1sec, reinvoke the function
+  secTimer = setTimeout(adjustSeconds, 1000);
+};
+
+// -----------------------------------------------------------
+
+// adjust minutes
+const adjustMinutes = () => {
+  // update minutes element
+  minElement.innerHTML = minutes;
+  // update minutes value
+  minutes = minutes + 1;
+  // After each minute, seconds is reset 
+  seconds = 0;
+  // after 1min, reinvoke the function
+  minTimer = setTimeout(adjustMinutes, 60000);
+};
+
+// -----------------------------------------------------------
+
 // Event listener of the deck
 // parameter (the event itself)
 const clickCard = event => {
@@ -204,6 +240,20 @@ const shuffledArray = shuffle(shapeArray);
 
 // invoke displayCards function
 displayCards();
+
+// variables for the timer //
+// Get minutes & seconds elements
+const minElement = document.querySelector(".minutes");
+const secElement = document.querySelector(".seconds");
+// initialize minutes & seconds
+let minutes = 0;
+let seconds = 0;
+// variables to be used to cancel the timer
+let secTimer;
+let minTimer;
+
+// invoke adjustTimer function
+adjustTimer();
 
 // add event listener to the deck
 deck.addEventListener("click", clickCard);
