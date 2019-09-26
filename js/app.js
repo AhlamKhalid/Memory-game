@@ -146,6 +146,30 @@ const editMoves = () => {
   const movesElement = document.querySelector(".moves");
   // update the value
   movesElement.innerHTML = moves;
+  // invoke editStars function
+  editStars();
+};
+
+// -----------------------------------------------------------
+
+// Edit star rating
+const editStars = () => {
+  // Get the second & third stars
+  const secondStar = document.querySelector(".second-star");
+  const thirdStar = document.querySelector(".third-star");
+  // After sixteen tries, one star is gone :)
+  if (moves === 17) {
+    // change star shape
+    thirdStar.classList.remove("fa-star");
+    thirdStar.classList.add("fa-star-o");
+  }
+  // After eight additional chances,
+  // the second star is sadly gone :)
+  if (moves === 26) {
+    // change star shape
+    secondStar.classList.remove("fa-star");
+    secondStar.classList.add("fa-star-o");
+  }
 };
 
 // -----------------------------------------------------------
