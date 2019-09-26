@@ -112,3 +112,8 @@ h1 {
     cursor: pointer;
 }
 
+.timer {
+    display: inline-block;
+    margin-left: 50px;
+}
+
