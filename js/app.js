@@ -77,9 +77,23 @@ const adjustMinutes = () => {
   // update minutes value
   minutes = minutes + 1;
   // After each minute, seconds is reset
-  seconds = 0;
+  // So, invoke resetSeconds function
+  resetSeconds();
   // after 1min, reinvoke the function
   minTimer = setTimeout(adjustMinutes, 60000);
+};
+
+// -----------------------------------------------------------
+
+// reset seconds
+const resetSeconds = () => {
+  // cancel the previous seconds timer
+  // So, no conflicts will arise.
+  clearTimeout(secTimer);
+  // initialize seconds
+  seconds = 0;
+  // reinvoke adjustSeconds functions
+  adjustSeconds();
 };
 
 // -----------------------------------------------------------
@@ -260,6 +274,7 @@ const initializeMoves = () => {
 // reset timer
 const resetTimer = () => {
   // cancel previous timers
+  // of seconds & minutes.
   clearTimeout(secTimer);
   clearTimeout(minTimer);
   // reinitialize seconds & minutes
