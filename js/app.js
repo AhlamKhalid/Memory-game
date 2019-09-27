@@ -19,8 +19,10 @@ const shuffle = array => {
 
 // -----------------------------------------------------------
 
-// arrow function to display cards on the deck
+// display cards on the deck
 const displayCards = () => {
+  // shuffle shapes to get different order each time
+  let shuffledArray = shuffle(shapeArray);
   // fragment for cards
   const fragment = document.createDocumentFragment();
   // loop to create a card for each shape
@@ -33,6 +35,12 @@ const displayCards = () => {
     card.className = `card fa ${shape}`;
     // append card to fragment
     fragment.appendChild(card);
+  }
+  // make sure the deck is empty
+  // to avoid appending new cards
+  // to old ones when restart the game.
+  while (deck.hasChildNodes()) {
+    deck.removeChild(deck.firstChild);
   }
   // append fragment to deck
   deck.appendChild(fragment);
@@ -68,7 +76,7 @@ const adjustMinutes = () => {
   minElement.innerHTML = minutes;
   // update minutes value
   minutes = minutes + 1;
-  // After each minute, seconds is reset 
+  // After each minute, seconds is reset
   seconds = 0;
   // after 1min, reinvoke the function
   minTimer = setTimeout(adjustMinutes, 60000);
@@ -178,8 +186,6 @@ const notMatch = () => {
 const editMoves = () => {
   // increment number of moves by one
   moves = moves + 1;
-  // Get the element to hold the number
-  const movesElement = document.querySelector(".moves");
   // update the value
   movesElement.innerHTML = moves;
   // invoke editStars function
@@ -190,9 +196,6 @@ const editMoves = () => {
 
 // Edit star rating
 const editStars = () => {
-  // Get the second & third stars
-  const secondStar = document.querySelector(".second-star");
-  const thirdStar = document.querySelector(".third-star");
   // After sixteen tries, one star is gone :)
   if (moves === 17) {
     // change star shape
@@ -206,6 +209,64 @@ const editStars = () => {
     secondStar.classList.remove("fa-star");
     secondStar.classList.add("fa-star-o");
   }
+};
+
+// -----------------------------------------------------------
+
+// Event listener of restart button
+const restart = () => {
+  // empty openedCards list(start afresh)
+  openedCards = [];
+  // reinvoke displayCards function
+  displayCards();
+  // invoke resetStars function
+  resetStars();
+  // invoke initializeMoves function
+  initializeMoves();
+  // invoke resetTimer function
+  resetTimer();
+};
+
+// -----------------------------------------------------------
+
+// reset stars
+const resetStars = () => {
+  // check which shape it is of
+  // the third & second stars.
+  if (thirdStar.classList.contains("fa-star-o")) {
+    // remove the unfilled star &
+    // replace it with the filled one.
+    thirdStar.classList.remove("fa-star-o");
+    thirdStar.classList.add("fa-star");
+  }
+  if (secondStar.classList.contains("fa-star-o")) {
+    secondStar.classList.remove("fa-star-o");
+    secondStar.classList.add("fa-star");
+  }
+};
+
+// -----------------------------------------------------------
+
+// initialize moves
+const initializeMoves = () => {
+  // intialize moves
+  moves = 0;
+  // update value in movesElement
+  movesElement.innerHTML = moves;
+};
+
+// -----------------------------------------------------------
+
+// reset timer
+const resetTimer = () => {
+  // cancel previous timers
+  clearTimeout(secTimer);
+  clearTimeout(minTimer);
+  // reinitialize seconds & minutes
+  seconds = 0;
+  minutes = 0;
+  // reinvoke adjustTimer function
+  adjustTimer();
 };
 
 // -----------------------------------------------------------
@@ -235,9 +296,6 @@ const shapeArray = [
   "fa-bomb"
 ];
 
-// shuffle shapes to get different order each time
-const shuffledArray = shuffle(shapeArray);
-
 // invoke displayCards function
 displayCards();
 
@@ -262,7 +320,20 @@ deck.addEventListener("click", clickCard);
 let openedCards = [];
 
 // number of moves
-let moves = 0;
+let moves;
+// Get the element to hold the number of moves
+const movesElement = document.querySelector(".moves");
+// invoke initializeMoves function
+initializeMoves();
+
+// Get the second & third stars
+const secondStar = document.querySelector(".second-star");
+const thirdStar = document.querySelector(".third-star");
+
+// get restart button
+const restartButton = document.querySelector(".restart");
+// Add event listener to the button
+restartButton.addEventListener("click", restart);
 
 /*
  * set up the event listener for a card. If a card is clicked:
