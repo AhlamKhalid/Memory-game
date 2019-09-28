@@ -40,7 +40,7 @@
 
       <ul class="deck"></ul>
 
-      <button class="open">open</button>
+      <!-- <button class="open">open</button> -->
       <!-- container for modal -->
       <!-- initially the modal is closed: modal-closed  -->
       <div id="modal-container" class="modal-closed">
@@ -48,7 +48,18 @@
         <div class="modal-background">
           <!-- modal content -->
           <div class="modal-content">
-            <h1>Hello, I'm modal</h1>
+            <!-- container for moves -->
+            <div class="moves-container">
+              Moves: <span class="moves-info"></span>
+            </div>
+            <!-- container for stars -->
+            <div class="stars-container">
+              Stars: <span class="stars-info"></span>
+            </div>
+            <!-- container for timer -->
+            <div class="timer-container">
+              Time: <span class="timer-info"></span>
+            </div>
             <button class="close">close</button>
           </div>
         </div>

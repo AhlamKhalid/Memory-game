@@ -207,19 +207,34 @@ const winCheck = () => {
   // matched, the user wins
   // & he/she is awesome :))
   if (winCounter === 8) {
-    // moves
-    console.log(`moves: ${moves}`);
-    // stars
-    console.log(firstStar, secondStar, thirdStar);
-    // stop timers
-    clearTimeout(secTimer);
-    clearTimeout(minTimer);
-    // get value of minutes & seconds
-    console.log(
-      minElement.firstChild.nodeValue,
-      secElement.firstChild.nodeValue
-    );
+    // invoke displayWinInfo function
+    displayWinInfo();
   }
+};
+
+// -----------------------------------------------------------
+
+// display win information
+const displayWinInfo = () => {
+  // open the modal by changing classes
+  modal.classList.remove("modal-closed");
+  modal.classList.add("modal-opened");
+  // dispaly moves
+  movesInfo.innerHTML = moves;
+  // Make sure starsInfo element has
+  // no previous old children.
+  while (starsInfo.hasChildNodes()) {
+    starsInfo.removeChild(starsInfo.firstChild);
+  }
+  // append copies of each star to starsInfo element
+  starsInfo.appendChild(firstStar.cloneNode());
+  starsInfo.appendChild(secondStar.cloneNode());
+  starsInfo.appendChild(thirdStar.cloneNode());
+  // cancel the timers
+  clearTimeout(secTimer);
+  clearTimeout(minTimer);
+  // timer info
+  timeInfo.innerHTML = `Min: ${minElement.firstChild.nodeValue} Sec: ${secElement.firstChild.nodeValue}`;
 };
 
 // -----------------------------------------------------------
@@ -267,6 +282,8 @@ const restart = () => {
   initializeMoves();
   // invoke resetTimer function
   resetTimer();
+  // reinitialize win counter
+  winCounter = 0;
 };
 
 // -----------------------------------------------------------
@@ -383,21 +400,20 @@ restartButton.addEventListener("click", restart);
 // if a user wins.
 let winCounter = 0;
 
-const openHandler = () => {
-  modal.classList.remove("modal-closed");
-  modal.classList.add("modal-opened");
-};
 const closeHandler = () => {
   modal.classList.remove("modal-opened");
   modal.classList.add("modal-closed");
 };
 
 // modal variables
-const openButton = document.querySelector(".open");
 const closeButton = document.querySelector(".close");
 const modal = document.querySelector("#modal-container");
-// Event listeners
-openButton.addEventListener("click", openHandler);
+
+// get elements inside the modal.
+const movesInfo = document.querySelector(".moves-info");
+const starsInfo = document.querySelector(".stars-info");
+const timeInfo = document.querySelector(".timer-info");
+
 closeButton.addEventListener("click", closeHandler);
 
 /*
