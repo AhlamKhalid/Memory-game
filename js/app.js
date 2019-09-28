@@ -136,12 +136,12 @@ const addCardToOpenedCards = card => {
   openedCards.push(card);
   // check how many cards in the list
   if (openedCards.length === 2) {
-    // if there are two cards, check if they match
-    checkMatching();
     // invoke editMoves function
-    // whenever the second card
-    // is clicked
+    // whenever a second card
+    // is clicked.
     editMoves();
+    // check if the cards match
+    checkMatching();
   }
 };
 
@@ -176,6 +176,8 @@ const match = () => {
   });
   // empty openedCards list
   openedCards = [];
+  // invoke winCheck function
+  winCheck();
 };
 
 // -----------------------------------------------------------
@@ -192,6 +194,32 @@ const notMatch = () => {
     // empty openedCards list
     openedCards = [];
   }, 1000);
+};
+
+// -----------------------------------------------------------
+
+// check if a user wins
+const winCheck = () => {
+  // increment counter
+  winCounter = winCounter + 1;
+  // number of unique shapes is eight
+  // So, if all eight cards have been
+  // matched, the user wins
+  // & he/she is awesome :))
+  if (winCounter === 8) {
+    // moves
+    console.log(`moves: ${moves}`);
+    // stars
+    console.log(firstStar, secondStar, thirdStar);
+    // stop timers
+    clearTimeout(secTimer);
+    clearTimeout(minTimer);
+    // get value of minutes & seconds
+    console.log(
+      minElement.firstChild.nodeValue,
+      secElement.firstChild.nodeValue
+    );
+  }
 };
 
 // -----------------------------------------------------------
@@ -341,7 +369,8 @@ const movesElement = document.querySelector(".moves");
 // invoke initializeMoves function
 initializeMoves();
 
-// Get the second & third stars
+// Get stars elements
+const firstStar = document.querySelector(".first-star");
 const secondStar = document.querySelector(".second-star");
 const thirdStar = document.querySelector(".third-star");
 
@@ -349,6 +378,10 @@ const thirdStar = document.querySelector(".third-star");
 const restartButton = document.querySelector(".restart");
 // Add event listener to the button
 restartButton.addEventListener("click", restart);
+
+// variable acts as a flag to know
+// if a user wins.
+let winCounter = 0;
 
 /*
  * set up the event listener for a card. If a card is clicked:
