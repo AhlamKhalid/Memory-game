@@ -331,6 +331,17 @@ const resetTimer = () => {
 
 // -----------------------------------------------------------
 
+// Event listener for play again button
+const playAgain = () => {
+  // close the modal by changing classes
+  modal.classList.remove("modal-opened");
+  modal.classList.add("modal-closed");
+  // invoke restart function
+  restart();
+};
+
+// -----------------------------------------------------------
+
 // Main code
 
 // Get deck
@@ -400,21 +411,18 @@ restartButton.addEventListener("click", restart);
 // if a user wins.
 let winCounter = 0;
 
-const closeHandler = () => {
-  modal.classList.remove("modal-opened");
-  modal.classList.add("modal-closed");
-};
-
-// modal variables
-const closeButton = document.querySelector(".close");
+// modal variables //
+// play again button
+const playAgainBtn = document.querySelector(".play-again-btn");
+// modal container
 const modal = document.querySelector("#modal-container");
-
 // get elements inside the modal.
 const movesInfo = document.querySelector(".moves-info");
 const starsInfo = document.querySelector(".stars-info");
 const timeInfo = document.querySelector(".timer-info");
 
-closeButton.addEventListener("click", closeHandler);
+// Event listener of play again button
+playAgainBtn.addEventListener("click", playAgain);
 
 /*
  * set up the event listener for a card. If a card is clicked:
