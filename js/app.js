@@ -383,6 +383,23 @@ restartButton.addEventListener("click", restart);
 // if a user wins.
 let winCounter = 0;
 
+const openHandler = () => {
+  modal.classList.remove("modal-closed");
+  modal.classList.add("modal-opened");
+};
+const closeHandler = () => {
+  modal.classList.remove("modal-opened");
+  modal.classList.add("modal-closed");
+};
+
+// modal variables
+const openButton = document.querySelector(".open");
+const closeButton = document.querySelector(".close");
+const modal = document.querySelector("#modal-container");
+// Event listeners
+openButton.addEventListener("click", openHandler);
+closeButton.addEventListener("click", closeHandler);
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)

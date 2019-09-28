@@ -30,16 +30,29 @@
         <span class="moves"></span> Moves
         <!-- Timer -->
         <div class="timer">
-          Min: <span class="minutes"></span>
-          Sec: <span class="seconds"></span>
+          Min: <span class="minutes"></span> Sec: <span class="seconds"></span>
         </div>
-        
+
         <div class="restart">
           <i class="fa fa-repeat"></i>
         </div>
       </section>
 
       <ul class="deck"></ul>
+
+      <button class="open">open</button>
+      <!-- container for modal -->
+      <!-- initially the modal is closed: modal-closed  -->
+      <div id="modal-container" class="modal-closed">
+        <!-- modal background -->
+        <div class="modal-background">
+          <!-- modal content -->
+          <div class="modal-content">
+            <h1>Hello, I'm modal</h1>
+            <button class="close">close</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="js/app.js"></script>
