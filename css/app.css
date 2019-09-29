@@ -118,6 +118,10 @@ h1 {
   margin-left: 50px;
 }
 
+/* *********************************** */
+/*              Modal style            */
+/* *********************************** */
+
 /* modal is closed */
 .modal-closed {
   display: none;
@@ -128,6 +132,7 @@ h1 {
   display: block;
 }
 
+/* Modal background & the modal: https://medium.com/@josephat94/a-simple-but-awesome-animation-with-css3-for-your-modals-eb24ebe4ab99 */
 /* Modal background */
 .modal-background {
   z-index: 1;
@@ -142,8 +147,9 @@ h1 {
   align-items: center;
 }
 
-/* the modal itself */
+/* the modal */
 .modal-content {
+  padding: 15px;
   width: 50%;
   height: 50%;
   background-color: white;
@@ -152,4 +158,57 @@ h1 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+/* play again button */
+.play-again-btn {
+  padding: 5px;
+  margin: 10px;
+  color: white;
+  background-color: #02ccba;
+  width: 130px;
+  height: 70px;
+  border: none;
+  border-radius: 5%;
+  outline: none;
+  font-size: 17px;
+}
+
+/* hovering over play again button */
+.play-again-btn:hover {
+  background-color: #019b8e;
+}
+
+/* info containers */
+.moves-container,
+.stars-container,
+.timer-container {
+  font-size: 17px;
+  margin: 10px;
+}
+
+/* icon container */
+.icon-container {
+  margin: 10px;
+}
+
+/* icon */
+.icon {
+  font-size:50px;
+  color: burlywood;
+  /* add animation */
+  animation: pulse 1s infinite;
+}
+
+/* icon animation: https://css-tricks.com/almanac/properties/a/animation/ */
+/* pulse animation */
+@keyframes pulse {
+  0% {
+    /* original size */
+    transform: scale(1);
+  }
+  100% {
+    /* increase size by half */
+    transform: scale(1.5);
+  }
 }
