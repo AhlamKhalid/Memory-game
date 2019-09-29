@@ -65,7 +65,7 @@ h1 {
   box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
-.deck .card.open { 
+.deck .card.open {
   /* transition duration */
   transition-duration: 0.25s;
   background: #02b3e4;
@@ -85,6 +85,11 @@ h1 {
   font-size: 33px;
   /* Add animation */
   animation: pulseMatch 0.5s;
+}
+
+/* class added for a short time(1sec - due to setTimeout function in app.js) to unmatched cards */
+.not-match {
+  animation: pulseNotMatch 1s;
 }
 
 /*
@@ -248,4 +253,20 @@ h1 {
   }
 }
 
-
+/* animation for unmatched cards */
+/* change color & slightly rotate cards */
+@keyframes pulseNotMatch {
+  0%,
+  50%,
+  100% {
+    background-color: brown;
+    /* rotate right */
+    transform: rotate(10deg);
+  }
+  25%,
+  75% {
+    background-color: brown;
+    /* rotate left */
+    transform: rotate(-10deg);
+  }
+}

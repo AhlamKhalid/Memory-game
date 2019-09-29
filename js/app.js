@@ -183,12 +183,18 @@ const match = () => {
 
 // the cards are not matched
 const notMatch = () => {
+  // not-match class is used to apply animation
+  // for a short time.
+  openedCards.forEach(card => {
+    card.classList.add("not-match");
+  });
   // setTimeout is used to give the chance
   // for the second card to be shown
-  // before it is covered again (after 1s delay)
+  // before it is covered again (after 1s).
+  // Also, remove not-match class.
   setTimeout(() => {
     openedCards.forEach(card => {
-      card.classList.remove("open", "show");
+      card.classList.remove("open", "show", "not-match");
     });
     // empty openedCards list
     openedCards = [];
