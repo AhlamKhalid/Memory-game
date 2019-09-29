@@ -85,6 +85,8 @@ h1 {
   cursor: default;
   background: #02ccba;
   font-size: 33px;
+  /* Add animation */
+  animation: pulseMatch 0.5s;
 }
 
 /*
@@ -201,12 +203,12 @@ h1 {
   font-size: 50px;
   color: burlywood;
   /* add animation */
-  animation: pulse 1s infinite;
+  animation: pulseIcon 1s infinite;
 }
 
 /* icon animation: https://css-tricks.com/almanac/properties/a/animation/ */
 /* pulse animation */
-@keyframes pulse {
+@keyframes pulseIcon {
   0% {
     /* original size */
     transform: scale(1);
@@ -233,4 +235,14 @@ h1 {
   }
 }
 
-
+/* animation for matched cards */
+@keyframes pulseMatch {
+  0% {
+    /* original size */
+    transform: scale(1);
+  }
+  100% {
+    /* icrease size slightly */
+    transform: scale(1.2);
+  }
+}
