@@ -65,8 +65,9 @@ h1 {
   box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
+/* open th card */
 .deck .card.open {
-  /* transition duration */
+  /* the duration of opening the card */
   transition-duration: 0.25s;
   background: #02b3e4;
   /* triangle cursor */
@@ -78,7 +79,7 @@ h1 {
   font-size: 33px;
 }
 
-/* this class is addad to the chard whenever it matches another card */
+/* this class is addad to the card whenever it matches another card */
 .deck .card.match {
   cursor: default;
   background: #02ccba;
@@ -149,6 +150,7 @@ h1 {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
+  /* center content */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -205,11 +207,15 @@ h1 {
 .icon {
   font-size: 50px;
   color: burlywood;
-  /* add animation */
+  /* add animation (repeat)*/
   animation: pulseIcon 1s infinite;
 }
 
-/* icon animation: https://css-tricks.com/almanac/properties/a/animation/ */
+/* *********************************** */
+/*               Animation             */
+/* *********************************** */
+
+/* icon animation */
 /* pulse animation */
 @keyframes pulseIcon {
   0% {
@@ -224,13 +230,13 @@ h1 {
 
 /* animation for displaying the modal */
 @keyframes show {
-  from {
+  0% {
     /* unvisible */
     transform: scale(0);
     opacity: 0;
     z-index: -1;
   }
-  to {
+  100% {
     /* visible as the original size */
     transform: scale(1);
     opacity: 1;
@@ -239,6 +245,7 @@ h1 {
 }
 
 /* animation for matched cards */
+/* pulse animation */
 @keyframes pulseMatch {
   0%,
   50%,

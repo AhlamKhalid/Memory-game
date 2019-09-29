@@ -1,11 +1,11 @@
-// functions
+// Arrow functions
 
 // Shuffle function from http://stackoverflow.com/a/2450976
+// takes an array & returns its shuffled version.
 const shuffle = array => {
   var currentIndex = array.length,
     temporaryValue,
     randomIndex;
-
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
@@ -13,7 +13,6 @@ const shuffle = array => {
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
   return array;
 };
 
@@ -29,7 +28,7 @@ const displayCards = () => {
   for (shape of shuffledArray) {
     // create new li element(the card)
     const card = document.createElement("li");
-    // give it class name
+    // give it a class name
     // card: style the card
     // fa and ${shape}: define the shape
     card.className = `card fa ${shape}`;
@@ -98,10 +97,10 @@ const resetSeconds = () => {
 
 // -----------------------------------------------------------
 
-// Event listener of the deck
+// Event listener of the deck.
 // parameter (the event itself)
 const clickCard = event => {
-  // Get event target (what was actually been clicked)
+  // Get event target (what was actually clicked)
   const card = event.target;
   // Check if a card is clicked (and not the deck!)
   // & the card is not already opened
@@ -129,9 +128,9 @@ const openCard = card => {
 
 // add the clicked card to a list of open cards
 // & check if there are two cards already in the
-// list
+// list.
 const addCardToOpenedCards = card => {
-  // Add the card
+  // Add the card to the list
   openedCards.push(card);
   // check how many cards in the list
   if (openedCards.length === 2) {
@@ -141,6 +140,10 @@ const addCardToOpenedCards = card => {
     editMoves();
     // check if the cards match
     checkMatching();
+    /* editMoves() should be called before checkMatching()
+    because we need to update both moves & stars
+    before checking the matching, so, in case the user won
+    all the data are already updated ;) */
   }
 };
 
@@ -227,7 +230,8 @@ const displayWinInfo = () => {
   // dispaly moves
   movesInfo.innerHTML = moves;
   // Make sure starsInfo element has
-  // no previous old children.
+  // no previous old children in case
+  // the user already won in the past.
   while (starsInfo.hasChildNodes()) {
     starsInfo.removeChild(starsInfo.firstChild);
   }
@@ -248,7 +252,7 @@ const displayWinInfo = () => {
 const editMoves = () => {
   // increment number of moves by one
   moves = moves + 1;
-  // update the value
+  // update value in moves element
   movesElement.innerHTML = moves;
   // invoke editStars function
   editStars();
@@ -352,6 +356,9 @@ const playAgain = () => {
 // Get deck
 const deck = document.querySelector(".deck");
 
+// add event listener to the deck
+deck.addEventListener("click", clickCard);
+
 // array to hold shapes
 const shapeArray = [
   "fa-diamond",
@@ -375,6 +382,9 @@ const shapeArray = [
 // invoke displayCards function
 displayCards();
 
+// Array of opened cards to check matching
+let openedCards = [];
+
 // variables for the timer //
 // Get minutes & seconds elements
 const minElement = document.querySelector(".minutes");
@@ -388,12 +398,6 @@ let minTimer;
 
 // invoke adjustTimer function
 adjustTimer();
-
-// add event listener to the deck
-deck.addEventListener("click", clickCard);
-
-// Array of opened cards to check matching
-let openedCards = [];
 
 // number of moves
 let moves;
@@ -412,30 +416,18 @@ const restartButton = document.querySelector(".restart");
 // Add event listener to the button
 restartButton.addEventListener("click", restart);
 
+// modal variables //
 // variable acts as a flag to know
 // if a user wins.
 let winCounter = 0;
-
-// modal variables //
-// play again button
-const playAgainBtn = document.querySelector(".play-again-btn");
 // modal container
 const modal = document.querySelector("#modal-container");
-// get elements inside the modal.
+// get elements inside the modal
 const movesInfo = document.querySelector(".moves-info");
 const starsInfo = document.querySelector(".stars-info");
 const timeInfo = document.querySelector(".timer-info");
+// play again button
+const playAgainBtn = document.querySelector(".play-again-btn");
 
 // Event listener of play again button
 playAgainBtn.addEventListener("click", playAgain);
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
