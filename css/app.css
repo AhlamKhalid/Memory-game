@@ -67,7 +67,9 @@ h1 {
 
 .deck .card.open {
   /* rotate the card around y axis */
-  transform: rotateY(0);
+  transform: rotateY(180deg);
+  /* transition duration */
+  transition-duration: 0.25s;
   background: #02b3e4;
   /* triangle cursor */
   cursor: default;
@@ -230,3 +232,5 @@ h1 {
     z-index: 2;
   }
 }
+
+
