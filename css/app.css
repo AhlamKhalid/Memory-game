@@ -237,11 +237,11 @@ h1 {
 
 /* animation for matched cards */
 @keyframes pulseMatch {
-  0% {
+  0%, 50%, 100% {
     /* original size */
     transform: scale(1);
   }
-  100% {
+  25%, 75% {
     /* icrease size slightly */
     transform: scale(1.2);
   }

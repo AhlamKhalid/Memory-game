@@ -122,8 +122,7 @@ const clickCard = event => {
 
 // open & show the symbol on card when clicked
 const openCard = card => {
-  card.classList.add("open");
-  card.classList.add("show");
+  card.classList.add("open", "show");
 };
 
 // -----------------------------------------------------------
