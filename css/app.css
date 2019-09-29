@@ -145,6 +145,8 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* add animation */
+  animation: show 1s;
 }
 
 /* the modal */
@@ -194,7 +196,7 @@ h1 {
 
 /* icon */
 .icon {
-  font-size:50px;
+  font-size: 50px;
   color: burlywood;
   /* add animation */
   animation: pulse 1s infinite;
@@ -210,5 +212,21 @@ h1 {
   100% {
     /* increase size by half */
     transform: scale(1.5);
+  }
+}
+
+/* animation for displaying the modal */
+@keyframes show {
+  from {
+    /* unvisible */
+    transform: scale(0);
+    opacity: 0;
+    z-index: -1;
+  }
+  to {
+    /* visible as the original size */
+    transform: scale(1);
+    opacity: 1;
+    z-index: 2;
   }
 }
