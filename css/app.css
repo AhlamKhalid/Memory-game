@@ -65,9 +65,7 @@ h1 {
   box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
-.deck .card.open {
-  /* rotate the card around y axis */
-  transform: rotateY(180deg);
+.deck .card.open { 
   /* transition duration */
   transition-duration: 0.25s;
   background: #02b3e4;
@@ -237,12 +235,17 @@ h1 {
 
 /* animation for matched cards */
 @keyframes pulseMatch {
-  0%, 50%, 100% {
+  0%,
+  50%,
+  100% {
     /* original size */
     transform: scale(1);
   }
-  25%, 75% {
+  25%,
+  75% {
     /* icrease size slightly */
     transform: scale(1.2);
   }
 }
+
+
