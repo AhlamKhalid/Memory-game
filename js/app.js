@@ -41,8 +41,25 @@ const displayCards = () => {
   while (deck.hasChildNodes()) {
     deck.removeChild(deck.firstChild);
   }
-  // append fragment to deck
-  deck.appendChild(fragment);
+  // first time to play (nothing in localStorage)
+  if (localStorage.length === 0) {
+    // append fragment to deck
+    deck.appendChild(fragment);
+    // invoke saveDeck function
+    saveDeck();
+  }
+  // in case of refresh, closing the browser by accident,
+  // get the deck saved in localStorage
+  else {
+    deck.innerHTML = localStorage.getItem("deckInner");
+  }
+};
+
+// -----------------------------------------------------------
+
+// save deck to localStorage
+const saveDeck = () => {
+  localStorage.setItem("deckInner", String(deck.innerHTML));
 };
 
 // -----------------------------------------------------------
@@ -122,6 +139,8 @@ const clickCard = event => {
 // open & show the symbol on card when clicked
 const openCard = card => {
   card.classList.add("open", "show");
+  // invoke saveDeck function
+  saveDeck();
 };
 
 // -----------------------------------------------------------
@@ -176,6 +195,8 @@ const match = () => {
     card.classList.remove("open", "show");
     card.classList.add("match");
   });
+  // invoke saveDeck function
+  saveDeck();
   // empty openedCards list
   openedCards = [];
   // invoke winCheck function
@@ -199,6 +220,8 @@ const notMatch = () => {
     openedCards.forEach(card => {
       card.classList.remove("open", "show", "not-match");
     });
+    // invoke saveDeck function
+    saveDeck();
     // empty openedCards list
     openedCards = [];
   }, 1000);
@@ -281,6 +304,8 @@ const editStars = () => {
 
 // Event listener of restart button
 const restart = () => {
+  // clear localStorage
+  localStorage.clear();
   // empty openedCards list(start afresh)
   openedCards = [];
   // reinvoke displayCards function
