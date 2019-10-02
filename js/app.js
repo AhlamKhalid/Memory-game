@@ -42,7 +42,7 @@ const displayCards = () => {
     deck.removeChild(deck.firstChild);
   }
   // first time to play (nothing in localStorage)
-  if (localStorage.length === 0) {
+  if (!localStorage.getItem("deck")) {
     // append fragment to deck
     deck.appendChild(fragment);
     // invoke saveDeck function
@@ -51,7 +51,7 @@ const displayCards = () => {
   // in case of refresh, closing the browser by accident,
   // get the deck saved in localStorage
   else {
-    deck.innerHTML = localStorage.getItem("deckInner");
+    deck.innerHTML = localStorage.getItem("deck");
   }
 };
 
@@ -59,7 +59,32 @@ const displayCards = () => {
 
 // save deck to localStorage
 const saveDeck = () => {
-  localStorage.setItem("deckInner", String(deck.innerHTML));
+  localStorage.setItem("deck", String(deck.innerHTML));
+};
+
+// -----------------------------------------------------------
+
+// displays stars in score panel
+const displayStars = () => {
+  // fragment for stars
+  const fragment = document.createDocumentFragment();
+  // unique class for each star
+  const classArray = ["first-star", "second-star", "third-star"];
+  // loop to create stars
+  for (starClass of classArray) {
+    // li element for the star
+    const star = document.createElement("li");
+    // i elemnt for the icon
+    const starIcon = document.createElement("i");
+    // Add class name
+    starIcon.className = `fa fa-star ${starClass}`;
+    // append icon to star
+    star.appendChild(starIcon);
+    // append star to fragment
+    fragment.appendChild(star);
+  }
+  // append fragment to stars element
+  stars.appendChild(fragment);
 };
 
 // -----------------------------------------------------------
@@ -259,9 +284,9 @@ const displayWinInfo = () => {
     starsInfo.removeChild(starsInfo.firstChild);
   }
   // append copies of each star to starsInfo element
-  starsInfo.appendChild(firstStar.cloneNode());
-  starsInfo.appendChild(secondStar.cloneNode());
-  starsInfo.appendChild(thirdStar.cloneNode());
+  starsInfo.appendChild(firstStar.firstChild.cloneNode());
+  starsInfo.appendChild(secondStar.firstChild.cloneNode());
+  starsInfo.appendChild(thirdStar.firstChild.cloneNode());
   // cancel the timers
   clearTimeout(secTimer);
   clearTimeout(minTimer);
@@ -288,15 +313,14 @@ const editStars = () => {
   // After sixteen tries, one star is gone :)
   if (moves === 17) {
     // change star shape
-    thirdStar.classList.remove("fa-star");
-    thirdStar.classList.add("fa-star-o");
+    thirdStar.firstChild.classList.remove("fa-star");
+    thirdStar.firstChild.classList.add("fa-star-o");
   }
   // After eight additional chances,
   // the second star is sadly gone :)
   if (moves === 26) {
-    // change star shape
-    secondStar.classList.remove("fa-star");
-    secondStar.classList.add("fa-star-o");
+    secondStar.firstChild.classList.remove("fa-star");
+    secondStar.firstChild.classList.add("fa-star-o");
   }
 };
 
@@ -326,15 +350,15 @@ const restart = () => {
 const resetStars = () => {
   // check which shape it is of
   // the third & second stars.
-  if (thirdStar.classList.contains("fa-star-o")) {
+  if (thirdStar.firstChild.classList.contains("fa-star-o")) {
     // remove the unfilled star &
     // replace it with the filled one.
-    thirdStar.classList.remove("fa-star-o");
-    thirdStar.classList.add("fa-star");
+    thirdStar.firstChild.classList.remove("fa-star-o");
+    thirdStar.firstChild.classList.add("fa-star");
   }
-  if (secondStar.classList.contains("fa-star-o")) {
-    secondStar.classList.remove("fa-star-o");
-    secondStar.classList.add("fa-star");
+  if (secondStar.firstChild.classList.contains("fa-star-o")) {
+    secondStar.firstChild.classList.remove("fa-star-o");
+    secondStar.firstChild.classList.add("fa-star");
   }
 };
 
@@ -431,10 +455,12 @@ const movesElement = document.querySelector(".moves");
 // invoke initializeMoves function
 initializeMoves();
 
-// Get stars elements
-const firstStar = document.querySelector(".first-star");
-const secondStar = document.querySelector(".second-star");
-const thirdStar = document.querySelector(".third-star");
+// Get ul element of stars
+const stars = document.querySelector(".stars");
+// invoke displayStars function
+displayStars();
+// Get individual stars by destructing
+const [firstStar, secondStar, thirdStar] = stars.children;
 
 // get restart button
 const restartButton = document.querySelector(".restart");
