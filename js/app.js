@@ -323,6 +323,8 @@ const editMoves = () => {
   moves = moves + 1;
   // update value in moves element
   movesElement.innerHTML = moves;
+  // invoke saveMoves function
+  saveMoves();
   // Edit stars if moves reach 17 or 26
   if (moves === 17 || moves === 26) {
     // invoke editStars function
@@ -373,10 +375,28 @@ const restart = () => {
 
 // initialize moves
 const initializeMoves = () => {
-  // intialize moves
-  moves = 0;
-  // update value in movesElement
-  movesElement.innerHTML = moves;
+  // if first time to play
+  if (!localStorage.getItem("moves")) {
+    // intialize moves
+    moves = 0;
+    // update value in movesElement
+    movesElement.innerHTML = moves;
+    // invoke saveMoves function
+    saveMoves();
+  } else {
+    // get moves from local storage, save it to moves
+    // variable as a Number.
+    moves = Number(localStorage.getItem("moves"));
+    // also, place it in movesElement
+    movesElement.innerHTML = Number(localStorage.getItem("moves"));
+  }
+};
+
+// -----------------------------------------------------------
+
+//  saves moves to localStorage
+const saveMoves = () => {
+  localStorage.setItem("moves", String(moves));
 };
 
 // -----------------------------------------------------------
