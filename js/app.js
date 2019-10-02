@@ -41,7 +41,7 @@ const displayCards = () => {
   while (deck.hasChildNodes()) {
     deck.removeChild(deck.firstChild);
   }
-  // first time to play (nothing in localStorage)
+  // if first time to play 
   if (!localStorage.getItem("deck")) {
     // append fragment to deck
     deck.appendChild(fragment);
@@ -66,25 +66,46 @@ const saveDeck = () => {
 
 // displays stars in score panel
 const displayStars = () => {
-  // fragment for stars
-  const fragment = document.createDocumentFragment();
-  // unique class for each star
-  const classArray = ["first-star", "second-star", "third-star"];
-  // loop to create stars
-  for (starClass of classArray) {
-    // li element for the star
-    const star = document.createElement("li");
-    // i elemnt for the icon
-    const starIcon = document.createElement("i");
-    // Add class name
-    starIcon.className = `fa fa-star ${starClass}`;
-    // append icon to star
-    star.appendChild(starIcon);
-    // append star to fragment
-    fragment.appendChild(star);
+  // if first time to play
+  if (!localStorage.getItem("stars")) {
+    // fragment for stars
+    const fragment = document.createDocumentFragment();
+    // unique class for each star
+    const classArray = ["first-star", "second-star", "third-star"];
+    // loop to create stars
+    for (starClass of classArray) {
+      // li element for the star
+      const star = document.createElement("li");
+      // i elemnt for the icon
+      const starIcon = document.createElement("i");
+      // Add class name
+      starIcon.className = `fa fa-star ${starClass}`;
+      // append icon to star
+      star.appendChild(starIcon);
+      // append star to fragment
+      fragment.appendChild(star);
+    }
+    // stars element should be empty
+    // to avoid appending new stars
+    // to old ones when restart the game.
+    while (stars.hasChildNodes()) {
+      stars.removeChild(stars.firstChild);
+    }
+    // append fragment to stars element
+    stars.appendChild(fragment);
+    // invoke saveStars function
+    saveStars();
+  } else {
+    // get the stars saved in localStorage
+    stars.innerHTML = localStorage.getItem("stars");
   }
-  // append fragment to stars element
-  stars.appendChild(fragment);
+};
+
+// -----------------------------------------------------------
+
+// save stars to localStorage
+const saveStars = () => {
+  localStorage.setItem("stars", String(stars.innerHTML));
 };
 
 // -----------------------------------------------------------
@@ -302,8 +323,11 @@ const editMoves = () => {
   moves = moves + 1;
   // update value in moves element
   movesElement.innerHTML = moves;
-  // invoke editStars function
-  editStars();
+  // Edit stars if moves reach 17 or 26
+  if (moves === 17 || moves === 26) {
+    // invoke editStars function
+    editStars();
+  }
 };
 
 // -----------------------------------------------------------
@@ -322,6 +346,7 @@ const editStars = () => {
     secondStar.firstChild.classList.remove("fa-star");
     secondStar.firstChild.classList.add("fa-star-o");
   }
+  saveStars();
 };
 
 // -----------------------------------------------------------
@@ -334,32 +359,14 @@ const restart = () => {
   openedCards = [];
   // reinvoke displayCards function
   displayCards();
-  // invoke resetStars function
-  resetStars();
+  // reinvoke displayStars function
+  displayStars();
   // invoke initializeMoves function
   initializeMoves();
   // invoke resetTimer function
   resetTimer();
   // reinitialize win counter
   winCounter = 0;
-};
-
-// -----------------------------------------------------------
-
-// reset stars
-const resetStars = () => {
-  // check which shape it is of
-  // the third & second stars.
-  if (thirdStar.firstChild.classList.contains("fa-star-o")) {
-    // remove the unfilled star &
-    // replace it with the filled one.
-    thirdStar.firstChild.classList.remove("fa-star-o");
-    thirdStar.firstChild.classList.add("fa-star");
-  }
-  if (secondStar.firstChild.classList.contains("fa-star-o")) {
-    secondStar.firstChild.classList.remove("fa-star-o");
-    secondStar.firstChild.classList.add("fa-star");
-  }
 };
 
 // -----------------------------------------------------------
