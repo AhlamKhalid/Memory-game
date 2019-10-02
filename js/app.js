@@ -20,29 +20,29 @@ const shuffle = array => {
 
 // display cards on the deck
 const displayCards = () => {
-  // shuffle shapes to get different order each time
-  let shuffledArray = shuffle(shapeArray);
-  // fragment for cards
-  const fragment = document.createDocumentFragment();
-  // loop to create a card for each shape
-  for (shape of shuffledArray) {
-    // create new li element(the card)
-    const card = document.createElement("li");
-    // give it a class name
-    // card: style the card
-    // fa and ${shape}: define the shape
-    card.className = `card fa ${shape}`;
-    // append card to fragment
-    fragment.appendChild(card);
-  }
-  // make sure the deck is empty
-  // to avoid appending new cards
-  // to old ones when restart the game.
-  while (deck.hasChildNodes()) {
-    deck.removeChild(deck.firstChild);
-  }
-  // if first time to play 
+  // if first time to play
   if (!localStorage.getItem("deck")) {
+    // shuffle shapes to get different order each time
+    let shuffledArray = shuffle(shapeArray);
+    // fragment for cards
+    const fragment = document.createDocumentFragment();
+    // loop to create a card for each shape
+    for (shape of shuffledArray) {
+      // create new li element(the card)
+      const card = document.createElement("li");
+      // give it a class name
+      // card: style the card
+      // fa and ${shape}: define the shape
+      card.className = `card fa ${shape}`;
+      // append card to fragment
+      fragment.appendChild(card);
+    }
+    // make sure the deck is empty
+    // to avoid appending new cards
+    // to old ones when restart the game.
+    while (deck.hasChildNodes()) {
+      deck.removeChild(deck.firstChild);
+    }
     // append fragment to deck
     deck.appendChild(fragment);
     // invoke saveDeck function
