@@ -136,6 +136,8 @@ const adjustSeconds = () => {
 const adjustMinutes = () => {
   // update minutes element
   minElement.innerHTML = minutes;
+  // invoke saveMinutes function
+  saveMinutes();
   // update minutes value
   minutes = minutes + 1;
   // After each minute, seconds is reset
@@ -143,6 +145,13 @@ const adjustMinutes = () => {
   resetSeconds();
   // after 1min, reinvoke the function
   minTimer = setTimeout(adjustMinutes, 60000);
+};
+
+// -----------------------------------------------------------
+
+// save minutes to localStorage
+const saveMinutes = () => {
+  localStorage.setItem("minutes", String(minutes));
 };
 
 // -----------------------------------------------------------
@@ -465,9 +474,22 @@ let openedCards = [];
 // Get minutes & seconds elements
 const minElement = document.querySelector(".minutes");
 const secElement = document.querySelector(".seconds");
-// initialize minutes & seconds
-let minutes = 0;
+
+// initialize minutes
+let minutes;
+// if first time
+if (!localStorage.getItem("minutes")) {
+  minutes = 0;
+}
+// if there is minutes in localStorage
+else {
+  // get the value
+  minutes = Number(localStorage.getItem("minutes"));
+}
+
+// initialize seconds
 let seconds = 0;
+
 // variables to be used to cancel the timer
 let secTimer;
 let minTimer;
