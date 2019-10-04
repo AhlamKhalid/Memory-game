@@ -288,6 +288,8 @@ const notMatch = () => {
 const winCheck = () => {
   // increment counter
   winCounter = winCounter + 1;
+  // invoke saveWinCounter function
+  saveWinCounter();
   // number of unique shapes is eight
   // So, if all eight cards have been
   // matched, the user wins
@@ -296,6 +298,13 @@ const winCheck = () => {
     // invoke displayWinInfo function
     displayWinInfo();
   }
+};
+
+// -----------------------------------------------------------
+
+// save winCounter in localStorage
+const saveWinCounter = () => {
+  localStorage.setItem("winCounter", String(winCounter));
 };
 
 // -----------------------------------------------------------
@@ -517,9 +526,20 @@ const restartButton = document.querySelector(".restart");
 restartButton.addEventListener("click", restart);
 
 // modal variables //
+
 // variable acts as a flag to know
 // if a user wins.
-let winCounter = 0;
+let winCounter;
+// if first time to play
+if (!localStorage.getItem("winCounter")) {
+  // initialize the variable to 0
+  winCounter = 0;
+}
+// If not, get value in the localStorage
+else {
+  winCounter = Number(localStorage.getItem("winCounter"));
+}
+
 // modal container
 const modal = document.querySelector("#modal-container");
 // get elements inside the modal
