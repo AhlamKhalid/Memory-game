@@ -4,9 +4,18 @@ A game where you match each card with another one that has the same symbol. In c
 <!-- Table of contents -->
 ## Contents
 
+* [Open the game](#Open-the-game)
 * [Features](#Features)
+* [Skills](#Skills)
 * [Demo](#Demo)
 * [Dependencies](#Dependencies)
+
+<!-- How to open the game -->
+## Open the game
+
+- Get game folder: either download or clone it via: https://github.com/AhlamKhalid/Memory-game.git 
+
+- Open the file `index.html`
 
 <!-- Game features -->
 ## Features
@@ -26,6 +35,15 @@ A game where you match each card with another one that has the same symbol. In c
 - Save game using localStorage
 
     > _Note_: localStorage is used to store & retrive matched cards, stars, moves, minuties, value of winCounter (flag to know if user wins)
+
+<!-- Skills -->
+## Skills
+
+- HTML 
+
+- CSS
+
+- Javascript
 
 <!-- Live demo -->
 ## Demo
